@@ -1,0 +1,6 @@
+@JetStreamMongo_HostAddress = http://localhost:5157
+
+GET {{JetStreamMongo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
