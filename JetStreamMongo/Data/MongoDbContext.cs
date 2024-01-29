@@ -52,7 +52,7 @@ namespace JetStreamMongo.Data
 
         public async Task MitarbeiterSeedAsync()
         {
-            Debug.WriteLine(Mitarbeiters,"bommmmmmm");
+            
             if (await Mitarbeiters.NotAny())
             {
 

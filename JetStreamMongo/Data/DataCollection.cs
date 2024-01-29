@@ -1,9 +1,10 @@
-﻿using MongoDB.Bson;
+﻿using JetStreamMongo.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace JetStreamMongo.Data
 {
-    public class DataCollection<T>
+    public class DataCollection<T> : IDataCollection<T>
     {
         private readonly IMongoCollection<T> _collection;
 
@@ -25,9 +26,6 @@ namespace JetStreamMongo.Data
             return entity;
         }
 
-
-
-
         // muss geändert werden
         public async Task UpdateAsync(string id, T entity)
         {
@@ -43,6 +41,7 @@ namespace JetStreamMongo.Data
         {
             return await _collection.CountDocumentsAsync(Builders<T>.Filter.Empty) <= 0;
         }
+
     }
 
 }

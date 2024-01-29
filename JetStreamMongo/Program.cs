@@ -10,8 +10,12 @@ namespace JetStreamMongo
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             // Add services to the container.
             builder.Services.AddSingleton<IMongoDbContext, MongoDbContext>();
+
+            builder.Services.AddScoped<MitarbeiterService>();
 
             builder.Services.AddControllers();
             
