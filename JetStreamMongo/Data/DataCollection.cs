@@ -26,7 +26,6 @@ namespace JetStreamMongo.Data
             return entity;
         }
 
-        // muss geändert werden
         public async Task UpdateAsync(string id, T entity)
         {
             await _collection.ReplaceOneAsync(Builders<T>.Filter.Eq("_id", new ObjectId(id)), entity);

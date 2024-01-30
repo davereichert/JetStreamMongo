@@ -1,6 +1,7 @@
 
 using JetStreamMongo.Data;
 using JetStreamMongo.Interfaces;
+using JetStreamMongo.Services;
 
 namespace JetStreamMongo
 {
@@ -16,6 +17,7 @@ namespace JetStreamMongo
             builder.Services.AddSingleton<IMongoDbContext, MongoDbContext>();
 
             builder.Services.AddScoped<MitarbeiterService>();
+            builder.Services.AddScoped<ServiceAuftragService>();
 
             builder.Services.AddControllers();
             

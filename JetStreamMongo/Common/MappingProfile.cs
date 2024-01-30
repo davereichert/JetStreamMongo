@@ -20,14 +20,16 @@ namespace JetStreamMongo.Common
             CreateMap<CreateMitarbeiterRequestDTO, Mitarbeiter>();
             CreateMap< Mitarbeiter, CreateMitarbeiterRequestDTO>();
             CreateMap<UpdateMitarbeiterRequestDTO, Mitarbeiter>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
             CreateMap<Mitarbeiter, UpdateMitarbeiterRequestDTO>();
 
 
 
             CreateMap<CreateServiceAuftragRequestDTO, ServiceAuftrag>();
-            CreateMap<UpdateServiceAuftragRequestDTO, ServiceAuftrag>();
+            CreateMap<UpdateServiceAuftragRequestDTO, ServiceAuftrag>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
 
 
 

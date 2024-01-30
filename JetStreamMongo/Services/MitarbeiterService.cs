@@ -11,55 +11,54 @@ public class MitarbeiterService
 {
     private readonly IMongoDbContext _dbContext;
     private readonly IMapper _mapper;
-    
 
     public MitarbeiterService(IMongoDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;
-        
     }
 
-    
-    public async Task<IEnumerable<GetMitarbeiterResponseDTO>> GetAllMitarbeiterAsync()
+    public async Task<IEnumerable<GetMitarbeiterResponseDTO>> GetAllAsync()
     {
-        var mitarbeiters = await _dbContext.Mitarbeiters.GetAllAsync();
-        return _mapper.Map<IEnumerable<GetMitarbeiterResponseDTO>>(mitarbeiters);
+        var entities = await _dbContext.Mitarbeiters.GetAllAsync();
+        return _mapper.Map<IEnumerable<GetMitarbeiterResponseDTO>>(entities);
     }
 
-    public async Task<GetMitarbeiterResponseDTO?> GetMitarbeiterByIdAsync(string id)
+    public async Task<GetMitarbeiterResponseDTO?> GetByIdAsync(string id)
     {
-        var mitarbeiters = await _dbContext.Mitarbeiters.GetAllAsync();
-        var mitarbeiter = mitarbeiters.FirstOrDefault(m => m.Id == id);
-        return _mapper.Map<GetMitarbeiterResponseDTO>(mitarbeiter);
+        var entities = await _dbContext.Mitarbeiters.GetAllAsync();
+        var entity = entities.FirstOrDefault(e => e.Id == id);
+        return _mapper.Map<GetMitarbeiterResponseDTO>(entity);
     }
 
-
-    public async Task<GetMitarbeiterResponseDTO> CreateMitarbeiterAsync(CreateMitarbeiterRequestDTO createDto)
+    public async Task<GetMitarbeiterResponseDTO> CreateAsync(CreateMitarbeiterRequestDTO createDto)
     {
-        
-        var mitarbeiter = _mapper.Map<Mitarbeiter>(createDto);
-        mitarbeiter = await _dbContext.Mitarbeiters.InsertOneAsync(mitarbeiter);
-        return _mapper.Map<GetMitarbeiterResponseDTO>(mitarbeiter);
+        var entity = _mapper.Map<Mitarbeiter>(createDto);
+        entity = await _dbContext.Mitarbeiters.InsertOneAsync(entity);
+        return _mapper.Map<GetMitarbeiterResponseDTO>(entity);
     }
 
-    public async Task<Mitarbeiter> UpdateMitarbeiterAsync(string id, UpdateMitarbeiterRequestDTO mitarbeiterDto)
+    public async Task<Mitarbeiter> UpdateAsync(string id, UpdateMitarbeiterRequestDTO updateDto)
     {
-        var mitarbeiter = _mapper.Map<Mitarbeiter>(mitarbeiterDto);
-        mitarbeiter.Id = id; // Sicherstellen, dass die ID korrekt gesetzt ist
-        await _dbContext.Mitarbeiters.UpdateAsync(id, mitarbeiter);
-        return mitarbeiter; // Rückgabe des aktualisierten Mitarbeiters
+        // Laden des bestehenden ServiceAuftrag-Objekts aus der Datenbank
+        var entity = await _dbContext.Mitarbeiters.GetByIdAsync(id);
+        if (entity == null)
+        {
+            // Handle nicht vorhandenen ServiceAuftrag
+            throw new KeyNotFoundException($"ServiceAuftrag with ID '{id}' not found.");
+        }
+
+        // Mappen des DTO auf das bestehende Objekt
+        _mapper.Map(updateDto, entity);
+
+        // Aktualisieren des Objekts in der Datenbank
+        await _dbContext.Mitarbeiters.UpdateAsync(id, entity);
+        return entity; // Return updated entity
     }
 
-
-    public async Task DeleteMitarbeiterAsync(string id)
+    public async Task DeleteAsync(string id)
     {
         await _dbContext.Mitarbeiters.DeleteAsync(id);
     }
-
-
-
-
-
-
 }
+
