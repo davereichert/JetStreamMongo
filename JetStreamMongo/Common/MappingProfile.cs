@@ -24,6 +24,9 @@ namespace JetStreamMongo.Common
 
             CreateMap<Mitarbeiter, UpdateMitarbeiterRequestDTO>();
 
+            CreateMap<MitarbeiterLoginRequestDTO, Mitarbeiter>();
+            CreateMap<Mitarbeiter, MitarbeiterLoginRequestDTO > ();
+
 
 
             CreateMap<CreateServiceAuftragRequestDTO, ServiceAuftrag>();

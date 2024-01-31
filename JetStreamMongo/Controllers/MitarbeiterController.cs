@@ -3,16 +3,19 @@ using JetStreamMongo.DTOs.Respons;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using JetStreamMongo.DTOs.Request;
+using JetStreamMongo.Interfaces;
 
 [Route("api/[controller]")]
 [ApiController]
 public class MitarbeiterController : ControllerBase
 {
     private readonly MitarbeiterService _mitarbeiterService;
+    private readonly ITokenService _tokenService;
 
-    public MitarbeiterController(MitarbeiterService mitarbeiterService)
+    public MitarbeiterController(MitarbeiterService mitarbeiterService, ITokenService tokenService)
     {
         _mitarbeiterService = mitarbeiterService;
+        _tokenService = tokenService;
     }
 
     [HttpGet]
@@ -53,6 +56,21 @@ public class MitarbeiterController : ControllerBase
 
         var responseDto = new DeleteResponse_DTO { Id = id };
         return Ok(responseDto);
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] MitarbeiterLoginRequestDTO loginRequest)
+    {
+        var result = await _mitarbeiterService.LoginAsync(loginRequest);
+
+        if (result)
+        {
+            return Ok("Login erfolgreich");
+        }
+        else
+        {
+            return Unauthorized("Ungültige Anmeldeinformationen");
+        }
     }
 
 }

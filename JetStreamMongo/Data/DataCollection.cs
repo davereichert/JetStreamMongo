@@ -1,6 +1,7 @@
 ﻿using JetStreamMongo.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Linq.Expressions;
 
 namespace JetStreamMongo.Data
 {
@@ -39,6 +40,10 @@ namespace JetStreamMongo.Data
         public async Task<bool> NotAny()
         {
             return await _collection.CountDocumentsAsync(Builders<T>.Filter.Empty) <= 0;
+        }
+        public async Task<T> FindOneAsync(Expression<Func<T, bool>> filterExpression)
+        {
+            return await _collection.Find(filterExpression).FirstOrDefaultAsync();
         }
 
     }

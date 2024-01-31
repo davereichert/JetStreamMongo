@@ -10,22 +10,22 @@ namespace JetStreamMongo.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        [BsonElement("name")]
+        [BsonElement("Name")]
         public string Name { get; set; }
 
-        [BsonElement("username")]
+        [BsonElement("Benutzername")]
         public string Benutzername { get; set; }
 
-        [BsonElement("password")]
+        [BsonElement("Passwort")]
         public string Passwort { get; set; }
 
-        [BsonElement("email")]
+        [BsonElement("Email")]
         public string Email { get; set; }
 
-        [BsonElement("telephone")]
+        [BsonElement("Telefonnummer")]
         public string Telefonnummer { get; set; }
 
-        [BsonElement("role")]
+        [BsonElement("Rolle")]
         public string Rolle { get; set; }
     }
 

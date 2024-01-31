@@ -60,5 +60,18 @@ public class MitarbeiterService
     {
         await _dbContext.Mitarbeiters.DeleteAsync(id);
     }
+
+    public async Task<bool> LoginAsync(MitarbeiterLoginRequestDTO loginDto)
+    {
+        var mitarbeiter = await _dbContext.Mitarbeiters.FindOneAsync(m => m.Benutzername == loginDto.Benutzername);
+        if (mitarbeiter == null)
+        {
+            // Benutzername nicht gefunden
+            return false;
+        }
+
+        // Passwortüberprüfung (sollte in der Praxis gehasht und gesalzen werden)
+        return mitarbeiter.Passwort == loginDto.Passwort;
+    }
 }
 
