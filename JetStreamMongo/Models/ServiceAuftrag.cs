@@ -11,25 +11,25 @@ namespace JetStreamMongo.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        [BsonElement("name")]
+        [BsonElement("Name")]
         public string Name { get; set; }
 
-        [BsonElement("email")]
+        [BsonElement("Email")]
         public string Email { get; set; }
 
-        [BsonElement("phone")]
+        [BsonElement("Phone")]
         public string Phone { get; set; }
 
-        [BsonElement("priority")]
+        [BsonElement("Priority")]
         public string Priority { get; set; }
 
-        [BsonElement("service")]
+        [BsonElement("Service")]
         public string Service { get; set; }
 
-        [BsonElement("create_date")]
+        
         public DateTime CreateDate { get; set; }
 
-        [BsonElement("pickup_date")]
+        
         public DateTime PickupDate { get; set; }
     }
 

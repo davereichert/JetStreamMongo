@@ -25,6 +25,7 @@ public class MitarbeiterController : ControllerBase
     }
 
     [HttpGet]
+    
     public async Task<ActionResult<IEnumerable<GetMitarbeiterResponseDTO>>> GetAll()
     {
         var mitarbeiterDtos = await _mitarbeiterService.GetAllAsync();
@@ -42,6 +43,7 @@ public class MitarbeiterController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<GetMitarbeiterResponseDTO>> GetById(string id)
     {
         var mitarbeiter = await _mitarbeiterService.GetByIdAsync(ObjectId.Parse(id));
@@ -53,6 +55,7 @@ public class MitarbeiterController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = nameof(Role.Admin))]
     public async Task<IActionResult> Update(string id, [FromBody] UpdateMitarbeiterRequestDTO mitarbeiterDto)
     {
         await _mitarbeiterService.UpdateAsync(id, mitarbeiterDto);
@@ -60,6 +63,7 @@ public class MitarbeiterController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = nameof(Role.Admin))]
     public async Task<IActionResult> Delete(string id)
     {
         await _mitarbeiterService.DeleteAsync(id);
