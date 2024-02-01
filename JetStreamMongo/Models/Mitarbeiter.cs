@@ -8,7 +8,7 @@ namespace JetStreamMongo.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public ObjectId Id { get; set; }
 
         [BsonElement("Name")]
         public string Name { get; set; }
@@ -26,7 +26,8 @@ namespace JetStreamMongo.Models
         public string Telefonnummer { get; set; }
 
         [BsonElement("Rolle")]
-        public string Rolle { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        public Role Rolle { get; set; }
     }
 
 }

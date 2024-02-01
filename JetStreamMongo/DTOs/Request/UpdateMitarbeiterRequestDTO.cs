@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using JetStreamMongo.Models;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace JetStreamMongo.DTOs.Request
 {
@@ -19,6 +20,6 @@ namespace JetStreamMongo.DTOs.Request
         public string? Telefonnummer { get; set; }
 
         
-        public string? Rolle { get; set; }
+        public Role? Rolle { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using JetStreamMongo.Models;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace JetStreamMongo.DTOs.Request
 {
@@ -9,5 +10,6 @@ namespace JetStreamMongo.DTOs.Request
 
         
         public string Passwort { get; set; }
+
     }
 }

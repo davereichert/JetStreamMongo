@@ -1,4 +1,6 @@
-﻿namespace JetStreamMongo.DTOs.Respons
+﻿using JetStreamMongo.Models;
+
+namespace JetStreamMongo.DTOs.Respons
 {
     public class GetMitarbeiterResponseDTO
     {
@@ -8,6 +10,6 @@
         // Passwort sollte nicht im Response enthalten sein
         public string Email { get; set; }
         public string Telefonnummer { get; set; }
-        public string Rolle { get; set; }
+        public Role Rolle { get; set; }
     }
 }

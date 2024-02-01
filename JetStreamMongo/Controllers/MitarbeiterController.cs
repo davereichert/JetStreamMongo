@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using JetStreamMongo.DTOs.Request;
 using JetStreamMongo.Interfaces;
+using MongoDB.Bson;
+using Microsoft.AspNetCore.Authorization;
+using JetStreamMongo.Models;
+using JetStreamMongo.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -12,10 +16,12 @@ public class MitarbeiterController : ControllerBase
     private readonly MitarbeiterService _mitarbeiterService;
     private readonly ITokenService _tokenService;
 
+
     public MitarbeiterController(MitarbeiterService mitarbeiterService, ITokenService tokenService)
     {
         _mitarbeiterService = mitarbeiterService;
         _tokenService = tokenService;
+        
     }
 
     [HttpGet]
@@ -26,15 +32,19 @@ public class MitarbeiterController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = nameof( Role.Admin))]
     public async Task<ActionResult<CreateMitarbeiterRequestDTO>> CreateMitarbeiter([FromBody] CreateMitarbeiterRequestDTO createDto)
     {
-        var mitarbeiterDtos = await _mitarbeiterService.CreateAsync(createDto);
-        return Ok(mitarbeiterDtos);
+       
+            var mitarbeiterDtos = await _mitarbeiterService.CreateAsync(createDto);
+            return Ok(mitarbeiterDtos);
+        
     }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<GetMitarbeiterResponseDTO>> GetById(string id)
     {
-        var mitarbeiter = await _mitarbeiterService.GetByIdAsync(id);
+        var mitarbeiter = await _mitarbeiterService.GetByIdAsync(ObjectId.Parse(id));
         if (mitarbeiter == null)
         {
             return NotFound();
@@ -62,16 +72,24 @@ public class MitarbeiterController : ControllerBase
     public async Task<IActionResult> Login([FromBody] MitarbeiterLoginRequestDTO loginRequest)
     {
         var result = await _mitarbeiterService.LoginAsync(loginRequest);
-
         if (result)
         {
-            return Ok("Login erfolgreich");
+            // Benutzer authentifiziert, Mitarbeiter anhand des Benutzernamens abrufen
+            var mitarbeiter = await _mitarbeiterService.GetMitarbeiterByBenutzername(loginRequest.Benutzername);
+            if (mitarbeiter == null)
+            {
+                return Unauthorized("Benutzer nicht gefunden.");
+            }
+            var token = _tokenService.CreateToken(mitarbeiter);
+            return Ok(new { token = token });
         }
         else
         {
             return Unauthorized("Ungültige Anmeldeinformationen");
         }
     }
+
+
 
 }
 

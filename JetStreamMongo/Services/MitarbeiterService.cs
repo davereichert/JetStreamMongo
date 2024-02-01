@@ -24,7 +24,7 @@ public class MitarbeiterService
         return _mapper.Map<IEnumerable<GetMitarbeiterResponseDTO>>(entities);
     }
 
-    public async Task<GetMitarbeiterResponseDTO?> GetByIdAsync(string id)
+    public async Task<GetMitarbeiterResponseDTO?> GetByIdAsync(ObjectId id)
     {
         var entities = await _dbContext.Mitarbeiters.GetAllAsync();
         var entity = entities.FirstOrDefault(e => e.Id == id);
@@ -72,6 +72,14 @@ public class MitarbeiterService
 
         // Passwortüberprüfung (sollte in der Praxis gehasht und gesalzen werden)
         return mitarbeiter.Passwort == loginDto.Passwort;
+    }
+
+    public async Task<Mitarbeiter> GetMitarbeiterByBenutzername(string benutzername)
+    {
+        // Annahme, dass _dbContext.Mitarbeiters eine Methode FindOneAsync oder eine ähnliche Methode bietet
+        // Diese Methode muss entsprechend Ihrer Datenbankabstraktion angepasst werden
+        var mitarbeiter = await _dbContext.Mitarbeiters.FindOneAsync(m => m.Benutzername == benutzername);
+        return mitarbeiter;
     }
 }
 
