@@ -9,13 +9,30 @@
 
  namespace JetStreamMongo.Services
 {
+
+    /// <summary>
+    /// Provides JWT token generation functionality for authenticated users.
+    /// </summary>
+    
     public class TokenService : ITokenService
     {
         private readonly SymmetricSecurityKey _key;
+
+        /// <summary>
+        /// Initializes the TokenService with a symmetric security key from configuration.
+        /// </summary>
+        /// <param name="config">Application configuration containing JWT key.</param>
+
         public TokenService(IConfiguration config)
         {
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
         }
+
+        /// <summary>
+        /// Creates a JWT token for an authenticated Mitarbeiter.
+        /// </summary>
+        /// <param name="mitarbeiter">The authenticated Mitarbeiter for whom the token is created.</param>
+        /// <returns>A JWT token string.</returns>
 
         public string CreateToken(Mitarbeiter mitarbeiter)
         {

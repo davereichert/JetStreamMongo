@@ -9,9 +9,18 @@ using Serilog;
 using System.Text;
 
 namespace JetStreamMongo
+
 {
+    /// <summary>
+    /// Main entry point for the JetStreamMongo application.
+    /// Initializes and configures the web application, including services, middleware, and database connections.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Main function to configure and run the web application.
+        /// Sets up logging, services, authentication, and Swagger documentation.
+        /// </summary>
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -99,6 +108,10 @@ namespace JetStreamMongo
             
             app.Run();
         }
+
+        /// <summary>
+        /// Initializes the database with seed data if necessary.
+        /// </summary>
 
         public static async Task Run(IServiceProvider services)
         {

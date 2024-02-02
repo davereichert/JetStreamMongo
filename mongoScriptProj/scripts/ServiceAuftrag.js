@@ -26,7 +26,8 @@ jet.createCollection('ServiceAuftrag', {
                },
                Priority: {
                    bsonType: "string",
-                   description: "muss vorhanden und eine Zeichenkette sein"
+                   description: "muss vorhanden und eine Zeichenkette sein",
+                   enum: ["Express", "Normal", "Low"]
                },
                Service: {
                    bsonType: "string",

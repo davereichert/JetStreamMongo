@@ -7,10 +7,18 @@ using System.Diagnostics;
 
 namespace JetStreamMongo.Data
 {
+    /// <summary>
+    /// Context class for MongoDB operations, implementing the IMongoDbContext interface.
+    /// </summary>
     public class MongoDbContext : IMongoDbContext
     {
         private readonly IMongoDatabase _database;
         private readonly IConfiguration _configuration;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MongoDbContext"/> class.
+        /// </summary>
+        /// <param name="configuration">The application configuration with database settings.</param>
 
         public MongoDbContext(IConfiguration configuration)
         {
@@ -20,12 +28,18 @@ namespace JetStreamMongo.Data
 
         }
 
+        /// <summary>
+        /// Ensures the database is properly set up, including collection creation and seeding, if necessary.
+        /// </summary>
         public void Initialize()
         {
             // Check and create collections, indexes, or seed data as needed
             EnsureDatabaseSetup();
         }
 
+        /// <summary>
+        /// Ensures required collections exist and are properly configured.
+        /// </summary>
         private void EnsureDatabaseSetup()
         {
             // Example: Create collections if they don't exist
@@ -45,11 +59,20 @@ namespace JetStreamMongo.Data
         }
 
         // Properties to access collections
+        /// <summary>
+        /// Gets the service orders collection from the database.
+        /// </summary>
         public DataCollection<ServiceAuftrag> ServiceAuftrags => new DataCollection<ServiceAuftrag>(_database, "ServiceAuftrag");
 
+        /// <summary>
+        /// Gets the employees collection from the database.
+        /// </summary>
         public DataCollection<Mitarbeiter> Mitarbeiters => new DataCollection<Mitarbeiter>(_database, "Mitarbeiter");
 
 
+        /// <summary>
+        /// Seeds the Mitarbeiter collection with initial data if it is empty.
+        /// </summary>
         public async Task MitarbeiterSeedAsync()
         {
             

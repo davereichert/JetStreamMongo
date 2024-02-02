@@ -10,7 +10,9 @@ namespace JetStreamMongo.Common
     {
         public MappingProfile()
         {
-
+            /// <summary>
+            /// AutoMapper profile to configure mapping between model entities and DTOs.
+            /// </summary>
 
             // Responses
             CreateMap<Mitarbeiter, GetMitarbeiterResponseDTO>();

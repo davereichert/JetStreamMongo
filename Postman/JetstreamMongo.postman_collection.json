@@ -1,0 +1,361 @@
+{
+	"info": {
+		"_postman_id": "61760b82-603c-4a04-babd-b7941191f6f2",
+		"name": "JetstreamMongo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29157899"
+	},
+	"item": [
+		{
+			"name": "Mitarbeiter",
+			"item": [
+				{
+					"name": "GetAllMitarbeiter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}api/Mitarbeiter",
+							"host": [
+								"{{Host}}api"
+							],
+							"path": [
+								"Mitarbeiter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MitarbeiterLogin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Store the token in a variable for the collection\r",
+									"var responseData = pm.response.json();\r",
+									"var token = responseData.token;\r",
+									"pm.collectionVariables.set(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"benutzername\": \"ardabs\",\r\n  \"passwort\": \"arda\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7244/api/Mitarbeiter/Login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7244",
+							"path": [
+								"api",
+								"Mitarbeiter",
+								"Login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateMitarbeiter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is a valid JSON object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has id, name, benutzername, email, telefonnummer, and rolle properties\", function () {\r",
+									"    var jsonResponse = pm.response.json();\r",
+									"    pm.expect(jsonResponse).to.have.property('id');\r",
+									"    pm.expect(jsonResponse).to.have.property('name');\r",
+									"    pm.expect(jsonResponse).to.have.property('benutzername');\r",
+									"    pm.expect(jsonResponse).to.have.property('email');\r",
+									"    pm.expect(jsonResponse).to.have.property('telefonnummer');\r",
+									"    pm.expect(jsonResponse).to.have.property('rolle');\r",
+									"});// Store the id of the created user in a global variable\r",
+									"var responseBody = pm.response.json();\r",
+									"var userId = responseBody.id;\r",
+									"pm.globals.set(\"createdUserId\", userId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"string\",\r\n  \"benutzername\": \"string\",\r\n  \"passwort\": \"string\",\r\n  \"email\": \"string@example.ch\",\r\n  \"telefonnummer\": \"string\",\r\n  \"rolle\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}api/Mitarbeiter",
+							"host": [
+								"{{Host}}api"
+							],
+							"path": [
+								"Mitarbeiter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateMitarbeiter",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"string\",\r\n  \"benutzername\": \"ddddd\",\r\n  \"passwort\": \"string\",\r\n  \"email\": \"string@example.ch\",\r\n  \"telefonnummer\": \"string\",\r\n  \"rolle\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}api/Mitarbeiter/{{createdUserId}}",
+							"host": [
+								"{{Host}}api"
+							],
+							"path": [
+								"Mitarbeiter",
+								"{{createdUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMitarbeiterById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}api/Mitarbeiter/{{createdUserId}}",
+							"host": [
+								"{{Host}}api"
+							],
+							"path": [
+								"Mitarbeiter",
+								"{{createdUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletMitarbeiter",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}api/Mitarbeiter/{{createdUserId}}",
+							"host": [
+								"{{Host}}api"
+							],
+							"path": [
+								"Mitarbeiter",
+								"{{createdUserId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ServiceAuftrag",
+			"item": [
+				{
+					"name": "GetServiceAuftrag",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}api/ServiceAuftrag",
+							"host": [
+								"{{Host}}api"
+							],
+							"path": [
+								"ServiceAuftrag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreatServiceAuftrag",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is a JSON object with required properties\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.be.an('object');\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData).to.have.property('name');\r",
+									"    pm.expect(jsonData).to.have.property('email');\r",
+									"    pm.expect(jsonData).to.have.property('phone');\r",
+									"    pm.expect(jsonData).to.have.property('priority');\r",
+									"    pm.expect(jsonData).to.have.property('service');\r",
+									"    pm.expect(jsonData).to.have.property('createDate');\r",
+									"    pm.expect(jsonData).to.have.property('pickupDate');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});// Stores the id of the created Service in a variable for the collection\r",
+									"var serviceId = pm.response.json().id;\r",
+									"pm.globals.set(\"serviceId\", serviceId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"string\",\r\n  \"email\": \"string@example.ch\",\r\n  \"phone\": \"string\",\r\n  \"priority\": \"Express\",\r\n  \"service\": \"string\",\r\n  \"createDate\": \"2024-02-01T16:30:51.033Z\",\r\n  \"pickupDate\": \"2024-02-01T16:30:51.033Z\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}api/ServiceAuftrag",
+							"host": [
+								"{{Host}}api"
+							],
+							"path": [
+								"ServiceAuftrag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetServiceAuftragById",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}api/ServiceAuftrag/{{serviceId}}",
+							"host": [
+								"{{Host}}api"
+							],
+							"path": [
+								"ServiceAuftrag",
+								"{{serviceId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletServiceAuftrag",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}api/ServiceAuftrag/{{serviceId}}",
+							"host": [
+								"{{Host}}api"
+							],
+							"path": [
+								"ServiceAuftrag",
+								"{{serviceId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Host",
+			"value": "https://localhost:7244/",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}

@@ -4,7 +4,9 @@ using System;
 
 namespace JetStreamMongo.Models
 {
-
+    /// <summary>
+    /// Represents a service order within the system.
+    /// </summary>
     public class ServiceAuftrag
     {
         [BsonId]

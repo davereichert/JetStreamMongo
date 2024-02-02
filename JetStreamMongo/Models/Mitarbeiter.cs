@@ -3,6 +3,9 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace JetStreamMongo.Models
 {
+    /// <summary>
+    /// Represents an employee within the system.
+    /// </summary>
 
     public class Mitarbeiter
     {

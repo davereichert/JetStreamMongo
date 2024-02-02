@@ -4,9 +4,11 @@
 
 `JetStreamMongo` ist ein Backend-Service, der in .NET Core implementiert ist und eine API für die Verwaltung von Mitarbeitern und Serviceaufträgen bietet. Die Anwendung nutzt MongoDB als Datenbank, um eine flexible und skalierbare Lösung für die Datenspeicherung zu bieten.
 
-## Datenbank-Setup
+## Setup
 
-Für die Einrichtung und Konfiguration der MongoDB-Datenbank, die von `JetStreamMongo` verwendet wird, folgen Sie bitte den detaillierten Anweisungen in der [Datenbank-Setup-Anleitung](./DatabaseSetup.md).
+1. folgen Sie bitte den detaillierten Anweisungen in der [Datenbank-Setup-Anleitung](./DatabaseSetup.md).
+2. Konfigurieren Sie die Verbindungszeichenfolge in  `appsettings.json`.
+3. Führen Sie das Projekt aus, um die API zu starten.
 
 
 ## Funktionen
@@ -30,11 +32,6 @@ Der `JetStreamMongo`-Ordner enthält folgende Hauptkomponenten:
 - **Services**: Implementiert die Geschäftslogik für Mitarbeiter- und Serviceauftragsoperationen.
 - **Data**: Stellt die Verbindung zur MongoDB-Datenbank her und definiert die Datenzugriffsschicht.
 
-## Setup
-
-1. Stellen Sie sicher, dass MongoDB auf Ihrem System installiert und konfiguriert ist.
-2. Konfigurieren Sie die Verbindungszeichenfolge in `appsettings.json`.
-3. Führen Sie das Projekt aus, um die API zu starten.
 
 ## Verwendung
 
