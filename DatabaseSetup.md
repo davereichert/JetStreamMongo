@@ -41,6 +41,22 @@ Im `mongoScriptProj`-Ordner finden Sie verschiedene Skripte, die für die Initia
 - **restore.ps1**: Stellt die Datenbank aus einem Backup wieder her, was besonders nützlich ist, wenn Daten wiederhergestellt werden müssen oder wenn Sie zu einem früheren Datenbankzustand zurückkehren möchten.
 
 - **Task-backup-sheduler.ps1**: Dieses Script wird zur Initialiesirung des automitschem Backups genutzt in dem es das oben genante script BackupDatabase in den Task Sheduler von windows schrebt
+  
+### Schritte
+
+1. Führen Sie zuerst das `Initialise Script` aus. Dieses Skript bereitet Ihre Datenbank vor, indem es die erforderlichen Schemata und Daten initialisiert.
+
+   - **Achtung** wenn Sie das Initialise script ausführen wird in Ihrer MongoDb die Datenbank jetstream gelöscht. und die dazu gehörigen user und der Admin user der sich in der Admin Db befidnet. Jedoch werden nur die Nutzer gelöscht die auch von diesem Script wieder erstellt werden.
+
+
+2. Nach der Ausführung des Initialisierungsskripts müssen Sie die Authentifizierung in Ihrer MongoDB-Konfiguration aktivieren, wie im Abschnitt "Aktivierung der Authentifizierung" beschrieben.
+
+#### Automatisierung mit dem Task Scheduler-Skript
+
+Nachdem die Datenbank initialisiert und die Authentifizierung aktiviert wurde, können Sie das bereitgestellte Skript verwenden, um die Backup-Aufgabe automatisch im Windows Task Scheduler einzurichten. Dieses Skript automatisiert den Prozess, sodass Sie sich nicht manuell um die Einrichtung im Task Scheduler kümmern müssen.
+
+Wenn Sie dieses Script ausführen denken Sie daran mit dem Administrator angemeldet zu sein da sonst der eintrag in den Task-Sheduler nicht möglich ist.
+
 
 ## Aktivierung der Authentifizierung
 
